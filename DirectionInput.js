@@ -1,7 +1,9 @@
 class DirectionInput {
   constructor() {
+    //Keys held, most recent held direction in first spot
     this.heldDirections = [];
 
+    //Key map
     this.map = {
       ArrowUp: "up",
       KeyW: "up",
@@ -14,17 +16,21 @@ class DirectionInput {
     };
   }
 
+  //Getter for current priority direction
   get direction() {
     return this.heldDirections[0];
   }
 
   init() {
+    //Key Down event listener for putting keys in heldDirections array
     document.addEventListener("keydown", (e) => {
       const dir = this.map[e.code];
       if (dir && this.heldDirections.indexOf(dir) === -1) {
         this.heldDirections.unshift(dir);
       }
     });
+
+    //Key Up event listener for removing keys from heldDirections array
     document.addEventListener("keyup", (e) => {
       const dir = this.map[e.code];
       const index = this.heldDirections.indexOf(dir);

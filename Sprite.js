@@ -1,13 +1,13 @@
 class Sprite {
   constructor(config) {
-    //Set up Image
+    //Set up sprite Image
     this.image = new Image();
     this.image.src = config.src;
     this.image.onload = () => {
       this.isLoaded = true;
     };
 
-    //Shadow
+    //Set up shadow Image
     this.shadow = new Image();
     this.useShadow = true;
     if (this.useShadow) {
@@ -48,9 +48,13 @@ class Sprite {
         [0, 3],
       ],
     };
+
+    //The current animation array set e.g. "walk-left"
     this.currentAnimation = config.currentAnimation;
+    //Which frame of the current animation the sprite is on
     this.currentAnimationFrame = config.currentAnimationFrame || 0;
 
+    //
     this.animationFrameLimit = config.animationFrameLimit || 8;
     this.animationFrameProgress = this.animationFrameLimit;
 
