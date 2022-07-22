@@ -23,7 +23,7 @@ class Person extends GameObject {
           direction: state.arrow,
         });
       }
-      this.updateSprite();
+      this.updateSprite(state);
     }
   }
 
@@ -31,11 +31,24 @@ class Person extends GameObject {
     this.direction = behaviour.direction;
     if (behaviour.type === "walk") {
       if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
+        behaviour.retry &&
+          setTimeout(() => {
+            this.startBehaviour(state, behaviour);
+          }, 10);
         return;
       }
 
       state.map.moveWall(this.x, this.y, this.direction);
       this.movingProgressRemaining = 16;
+      this.updateSprite(state);
+    }
+
+    if (behaviour.type === "stand") {
+      setTimeout(() => {
+        utils.emitEvent("PersonStandComplete", {
+          whoId: this.id,
+        });
+      }, behaviour.time);
     }
   }
 
@@ -43,6 +56,10 @@ class Person extends GameObject {
     const [property, change] = this.directionUpdate[this.direction];
     this[property] += change;
     this.movingProgressRemaining -= 1;
+
+    if (this.movingProgressRemaining === 0) {
+      utils.emitEvent("PersonWalkingComplete", { whoId: this.id });
+    }
   }
 
   updateSprite() {
