@@ -1,11 +1,17 @@
 class OverworldEvent {
   constructor({ map, event }) {
+    //Current loaded map
     this.map = map;
+    //Event details
     this.event = event;
   }
 
+  //Stand animation/movement handler
   stand(resolve) {
+    //Which sprite is affected
     const who = this.map.gameObjects[this.event.who];
+
+    //Triggers behaviour
     who.startBehaviour(
       {
         map: this.map,
@@ -17,6 +23,7 @@ class OverworldEvent {
       }
     );
 
+    //Removes event listener on when emitEvent fires
     const completeHandler = (e) => {
       if (e.detail.whoId === this.event.who) {
         document.removeEventListener("PersonStandComplete", completeHandler);
@@ -24,11 +31,16 @@ class OverworldEvent {
       }
     };
 
+    //Listens for custom event from emitEvent to trigger animation completion
     document.addEventListener("PersonStandComplete", completeHandler);
   }
 
+  //Walk animation/movement handler
   walk(resolve) {
+    //Which sprite is affected
     const who = this.map.gameObjects[this.event.who];
+
+    //Triggers behaviour
     who.startBehaviour(
       {
         map: this.map,
@@ -40,6 +52,7 @@ class OverworldEvent {
       }
     );
 
+    //Removes event listener on when emitEvent fires
     const completeHandler = (e) => {
       if (e.detail.whoId === this.event.who) {
         document.removeEventListener("PersonWalkingComplete", completeHandler);
@@ -47,9 +60,11 @@ class OverworldEvent {
       }
     };
 
+    //Listens for custom event from emitEvent to trigger animation completion
     document.addEventListener("PersonWalkingComplete", completeHandler);
   }
 
+  //Start event
   init() {
     return new Promise((resolve) => {
       this[this.event.type](resolve);

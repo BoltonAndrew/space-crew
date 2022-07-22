@@ -54,18 +54,20 @@ class Sprite {
     //Which frame of the current animation the sprite is on
     this.currentAnimationFrame = config.currentAnimationFrame || 0;
 
-    //
+    //Time between animation frames, defaults at 8 and moves down
     this.animationFrameLimit = config.animationFrameLimit || 8;
     this.animationFrameProgress = this.animationFrameLimit;
 
-    //reference the game object that created this sprite
+    //Reference the game object that created this sprite
     this.gameObject = config.gameObject;
   }
 
+  //Get current animation frame
   get frame() {
     return this.animations[this.currentAnimation][this.currentAnimationFrame];
   }
 
+  //Make current animation frame the current key, this switches between L/R/U/D
   setAnimation(key) {
     if (this.currentAnimation !== key) {
       this.currentAnimation = key;
@@ -74,6 +76,7 @@ class Sprite {
     }
   }
 
+  //Reduce the counter between frame changes unless it's 0, then move onto following frame, if the frames have ended, restart from first frame
   updateAnimationProgress() {
     if (this.animationFrameProgress > 0) {
       this.animationFrameProgress -= 1;
@@ -88,6 +91,7 @@ class Sprite {
     }
   }
 
+  //Draw sprite on screen based on x/y coords and the position of the main character/current camera focus point
   draw(ctx, cameraPerson) {
     const x = this.gameObject.x - 8 + utils.withGrid(10.5) - cameraPerson.x;
     const y = this.gameObject.y - 18 + utils.withGrid(6) - cameraPerson.y;

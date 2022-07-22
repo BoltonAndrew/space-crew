@@ -12,6 +12,7 @@ class OverworldMap {
     this.upperImage = new Image();
     this.upperImage.src = config.upperSrc;
 
+    //Global cutscene bool
     this.isCutscenePlaying = false;
   }
 
@@ -33,11 +34,13 @@ class OverworldMap {
     );
   }
 
+  //Collision detection checker
   isSpaceTaken(currentX, currentY, direction) {
     const { x, y } = utils.nextPosition(currentX, currentY, direction);
     return this.walls[`${x},${y}`] || false;
   }
 
+  //For every object in the gameObjects array from a map, grab the name, save as a new k/v id, then mounted which adds collision for where it currently is
   mountObjects() {
     Object.keys(this.gameObjects).forEach((key) => {
       let object = this.gameObjects[key];
@@ -47,14 +50,17 @@ class OverworldMap {
     });
   }
 
+  //Add collision block
   addWall(x, y) {
     this.walls[`${x},${y}`] = true;
   }
 
+  //Remove collision block
   removeWall(x, y) {
     delete this.walls[`${x},${y}`];
   }
 
+  //Move collision block
   moveWall(wasX, wasY, direction) {
     this.removeWall(wasX, wasY);
     const { x, y } = utils.nextPosition(wasX, wasY, direction);

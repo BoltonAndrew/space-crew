@@ -14,10 +14,12 @@ class GameObject {
       currentAnimation: config.currentAnimation || "idle-down",
     });
 
+    //Behaviour default values
     this.behaviourLoop = config.behaviourLoop || [];
     this.behaviourLoopIndex = 0;
   }
 
+  //Create both a collision block for a GameObject and trigger any behaviour associated
   mount(map) {
     this.isMounted = true;
     map.addWall(this.x, this.y);
@@ -29,6 +31,7 @@ class GameObject {
 
   update() {}
 
+  //Triggers a behaviour
   async doBehaviourEvent(map) {
     //Don't do behaviour if something more important is happening or if there is no behaviour for this Game Object
     if (map.isCutscenePlaying || this.behaviourLoop.length === 0) {

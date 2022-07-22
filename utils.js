@@ -1,10 +1,13 @@
 const utils = {
+  //Resize x/y coords
   withGrid(n) {
     return n * 16;
   },
+  //Return x/y coords as string for object keys
   asGridCoord(x, y) {
     return `${x * 16},${y * 16}`;
   },
+  //Movement x/y value change utility
   nextPosition(initialX, initialY, direction) {
     let x = initialX;
     let y = initialY;
@@ -20,6 +23,7 @@ const utils = {
     }
     return { x, y };
   },
+  //Custom event builder
   emitEvent(name, detail) {
     const event = new CustomEvent(name, {
       detail,
