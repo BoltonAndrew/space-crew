@@ -17,6 +17,8 @@ class GameObject {
     //Behaviour default values
     this.behaviourLoop = config.behaviourLoop || [];
     this.behaviourLoopIndex = 0;
+
+    this.talking = config.talking || [];
   }
 
   //Create both a collision block for a GameObject and trigger any behaviour associated
@@ -34,7 +36,11 @@ class GameObject {
   //Triggers a behaviour
   async doBehaviourEvent(map) {
     //Don't do behaviour if something more important is happening or if there is no behaviour for this Game Object
-    if (map.isCutscenePlaying || this.behaviourLoop.length === 0) {
+    if (
+      map.isCutscenePlaying ||
+      this.behaviourLoop.length === 0 ||
+      this.isStanding
+    ) {
       return;
     }
 

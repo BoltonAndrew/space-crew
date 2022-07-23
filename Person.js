@@ -4,6 +4,7 @@ class Person extends GameObject {
     super(config);
     //Sets moving progress to default at zero to make sure not moving on load
     this.movingProgressRemaining = 0;
+    this.isStanding = false;
 
     //Checks if the hero or not
     this.isPlayerControlled = config.isPlayerControlled || false;
@@ -22,7 +23,11 @@ class Person extends GameObject {
     if (this.movingProgressRemaining > 0) {
       this.updatePosition();
     } else {
-      if (this.isPlayerControlled && state.arrow) {
+      if (
+        !state.map.isCutscenePlaying &&
+        this.isPlayerControlled &&
+        state.arrow
+      ) {
         this.startBehaviour(state, {
           type: "walk",
           direction: state.arrow,
@@ -53,10 +58,12 @@ class Person extends GameObject {
 
     //Idle handler, including how long to stay idle
     if (behaviour.type === "stand") {
+      this.isStanding = true;
       setTimeout(() => {
         utils.emitEvent("PersonStandComplete", {
           whoId: this.id,
         });
+        this.isStanding = false;
       }, behaviour.time);
     }
   }
