@@ -80,7 +80,7 @@ class Person extends GameObject {
     }
   }
 
-  //Runs setAnimation function with current direction added to movement/lack of movement
+  //Runs setAnimation function with current direction added to movement/lack of movement.
   updateSprite() {
     if (this.movingProgressRemaining > 0) {
       this.sprite.setAnimation("walk-" + this.direction);

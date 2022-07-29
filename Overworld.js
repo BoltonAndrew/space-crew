@@ -48,12 +48,14 @@ class Overworld {
     step();
   }
 
+  //Creates a listener for Enter key presses and check if the tile in front of the hero has an "Enter" event
   bindActionInput() {
     new KeyPressListener("Enter", () => {
       this.map.checkForActionCutscene();
     });
   }
 
+  //Creates listener for PersonWalkingComplete custom event, then checks if the tile the hero is on triggers a cutscene
   bindHeroPositionCheck() {
     document.addEventListener("PersonWalkingComplete", (e) => {
       if (e.detail.whoId === "hero") {
@@ -73,6 +75,7 @@ class Overworld {
     //Load relevant map for the scene
     this.startMap(window.OverworldMaps.DemoRoom);
 
+    //Adds event listeners for two game event triggers
     this.bindActionInput();
     this.bindHeroPositionCheck();
 
@@ -83,15 +86,15 @@ class Overworld {
     //Start the game
     this.startGameLoop();
 
+    //Run initial cutscene
     this.map.startCutscene([
-      // { type: "changeMap", map: "Kitchen" },
-      // { who: "hero", type: "walk", direction: "down" },
-      // { who: "hero", type: "walk", direction: "down" },
-      // { who: "hero", type: "stand", direction: "right" },
-      // { who: "npcA", type: "walk", direction: "up" },
-      // { who: "npcA", type: "walk", direction: "left" },
-      // { who: "npcA", type: "stand", direction: "left", time: 200 },
-      // { type: "textMessage", text: "Hello there!" },
+      { who: "hero", type: "walk", direction: "down" },
+      { who: "hero", type: "walk", direction: "down" },
+      { who: "hero", type: "stand", direction: "right" },
+      { who: "npcA", type: "walk", direction: "up" },
+      { who: "npcA", type: "walk", direction: "left" },
+      { who: "npcA", type: "stand", direction: "left", time: 200 },
+      { type: "textMessage", text: "Hello there!" },
     ]);
   }
 }

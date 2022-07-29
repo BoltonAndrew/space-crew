@@ -22,7 +22,7 @@ class DirectionInput {
   }
 
   init() {
-    //Key Down event listener for putting keys in heldDirections array
+    //Key Down event listener for putting keys in heldDirections array.
     document.addEventListener("keydown", (e) => {
       const dir = this.map[e.code];
       if (dir && this.heldDirections.indexOf(dir) === -1) {

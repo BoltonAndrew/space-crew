@@ -91,7 +91,7 @@ class Sprite {
     }
   }
 
-  //Draw sprite on screen based on x/y coords and the position of the main character/current camera focus point
+  //Draw sprite on screen based on x/y coords and the position of the main character/current camera focus point.
   draw(ctx, cameraPerson) {
     const x = this.gameObject.x - 8 + utils.withGrid(10.5) - cameraPerson.x;
     const y = this.gameObject.y - 18 + utils.withGrid(6) - cameraPerson.y;

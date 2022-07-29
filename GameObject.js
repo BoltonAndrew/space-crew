@@ -58,7 +58,7 @@ class GameObject {
       this.behaviourLoopIndex = 0;
     }
 
-    //Move onto the next iteration of the event
+    //Move onto the next iteration of the event.
     this.doBehaviourEvent(map);
   }
 }

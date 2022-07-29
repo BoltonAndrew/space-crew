@@ -23,6 +23,7 @@ const utils = {
     }
     return { x, y };
   },
+  //Brings back opposite direction from the given direction
   oppositeDirection(direction) {
     if (direction === "left") {
       return "right";

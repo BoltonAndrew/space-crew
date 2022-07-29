@@ -1,13 +1,18 @@
 class RevealingText {
   constructor(config) {
+    //Where the revealing text is displayed
     this.element = config.element;
+    //What the content is
     this.text = config.text;
+    //Spped of the reveal
     this.speed = config.speed || 60;
 
     this.timeout = null;
+    //Flag used to allow Enter input
     this.isDone = false;
   }
 
+  //Typewrite text reveal function
   revealOneCharacter(list) {
     const next = list.splice(0, 1)[0];
     next.span.classList.add("revealed");
@@ -21,6 +26,7 @@ class RevealingText {
     }
   }
 
+  //Skip typewriter effect
   warpToDone() {
     clearTimeout(this.timeout);
     this.isDone = true;
@@ -29,6 +35,7 @@ class RevealingText {
     });
   }
 
+  //Called to start the revealing text event
   init() {
     let characters = [];
     this.text.split("").forEach((character) => {

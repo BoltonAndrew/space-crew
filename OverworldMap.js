@@ -52,9 +52,12 @@ class OverworldMap {
     });
   }
 
+  //Run cutscene event
   async startCutscene(events) {
+    //Set cutscene flag to true, this disables player input and passive events
     this.isCutscenePlaying = true;
 
+    //Move through event frames
     for (let i = 0; i < events.length; i++) {
       const eventHandler = new OverworldEvent({
         event: events[i],
@@ -63,13 +66,16 @@ class OverworldMap {
       await eventHandler.init();
     }
 
+    //Once event has finished, set flag to false, this allows passive events and player input to continue
     this.isCutscenePlaying = false;
 
+    //Re-trigger behaviours of objects
     Object.values(this.gameObjects).forEach((object) =>
       object.doBehaviourEvent(this)
     );
   }
 
+  //Check for interactable npc/item in tile in front of hero
   checkForActionCutscene() {
     const hero = this.gameObjects["hero"];
     const nextCoords = utils.nextPosition(hero.x, hero.y, hero.direction);
@@ -81,6 +87,7 @@ class OverworldMap {
     }
   }
 
+  //Check current tile for cutscene trigger
   checkForFootstepCutscene() {
     const hero = this.gameObjects["hero"];
     const match = this.cutsceneSpaces[`${hero.x},${hero.y}`];
@@ -142,13 +149,7 @@ window.OverworldMaps = {
         x: utils.withGrid(8),
         y: utils.withGrid(5),
         src: "./assets/characters/people/npc2.png",
-        // behaviourLoop: [
-        //   { type: "walk", direction: "left" },
-        //   { type: "stand", direction: "up", time: 800 },
-        //   { type: "walk", direction: "up" },
-        //   { type: "walk", direction: "right" },
-        //   { type: "walk", direction: "down" },
-        // ],
+        behaviourLoop: [],
       }),
     },
     walls: {

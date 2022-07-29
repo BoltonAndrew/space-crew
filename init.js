@@ -4,6 +4,6 @@
     element: document.querySelector(".game-container"),
   });
 
-  //Start all game logic
+  //Start all game logic.
   overworld.init();
 })();
