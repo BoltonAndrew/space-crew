@@ -246,5 +246,12 @@ window.OverworldMaps = {
         src: "./assets/characters/people/npc3.png",
       }),
     },
+    cutsceneSpaces: {
+      [utils.asGridCoord(5, 10)]: [
+        {
+          events: [{ type: "changeMap", map: "DemoRoom" }],
+        },
+      ],
+    },
   },
 };

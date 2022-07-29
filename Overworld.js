@@ -84,7 +84,7 @@ class Overworld {
     this.startGameLoop();
 
     this.map.startCutscene([
-      { type: "changeMap", map: "Kitchen" },
+      // { type: "changeMap", map: "Kitchen" },
       // { who: "hero", type: "walk", direction: "down" },
       // { who: "hero", type: "walk", direction: "down" },
       // { who: "hero", type: "stand", direction: "right" },
